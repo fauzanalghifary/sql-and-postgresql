@@ -44,7 +44,8 @@ CREATE TABLE likes (
 		COALESCE((comment_id)::BOOLEAN::INTEGER, 0)
 		= 1
 	),
-	UNIQUE(user_id, post_id, comment_id)
+	UNIQUE(user_id, post_id),
+    UNIQUE(user_id, comment_id)
 );
 
 CREATE TABLE photo_tags (
