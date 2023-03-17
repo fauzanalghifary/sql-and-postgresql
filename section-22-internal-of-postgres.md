@@ -7,3 +7,7 @@ Postgres stores its data in a directory called `PGDATA`. This is usually
 The `PGDATA` directory contains a number of files and directories.
 
 ## Heaps, Blocks, and Tuples
+
+- Heap file: file that contains all the data (rows) of our table
+- Tuple (item): a single row of data
+- Block: the heap file is divided into blocks of 8KB. Each block contains multiple tuples.
