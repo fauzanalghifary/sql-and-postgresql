@@ -1,4 +1,4 @@
-# ------------------------------------------------------ FILTERING ROWS WITH 'WHERE'
+---- FILTERING ROWS WITH 'WHERE'
 
 SELECT name, area FROM cities WHERE area > 4000;
 
@@ -21,21 +21,20 @@ FROM
 WHERE 
 	area IN (3043, 8223) 
 	AND name = 'Sao Paulo';
-	
 
-# ------------------------------------------------------ CALCULATION IN'WHERE'
+---- CALCULATION IN 'WHERE'
 
 SELECT name, population/area AS population_density
 FROM cities
 WHERE population/area < 6000;
 
-# ------------------------------------------------------ UPDATING ROWS
+---- UPDATING ROWS
 
 UPDATE cities
 SET population = 39505000
 WHERE name = 'Tokyo';
 
-# ------------------------------------------------------ DELETING ROWS
+---- DELETING ROWS
 
 DELETE FROM cities
 WHERE name = 'Tokyo';
