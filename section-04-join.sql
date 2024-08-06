@@ -1,8 +1,7 @@
-# ------------------------------------------------------ ADDING SOME DATA
+---- ADDING SOME DATA
 
 DROP TABLE photos;
 DROP TABLE users;
-
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
@@ -157,13 +156,12 @@ VALUES
         ('Minima dolorem reiciendis excepturi culpa sapiente eos deserunt ut.', 3, 3);
         
         
-# ------------------------------------------------------ JOIN VS AGGREGATION
+---- JOIN VS AGGREGATION
 
-#JOIN => mergin rows from different tables
+-- JOIN => merging rows from different tables
+-- AGGREGATION => calculate single values (most, avg, least)
 
-#AGGREGATION => calculate single values (most, avg, least)
-
-# ------------------------------------------------------ JOIN
+---- JOIN
 
 SELECT contents, username
 FROM comments
@@ -175,9 +173,9 @@ FROM comments
 JOIN photos
 ON photos.id = comments.photo_id;
 
-# ------------------------------------------------------ ALTERNATE FORM OF SYNTAX
+---- ALTERNATE FORM OF SYNTAX
 
-# Must give context if column name collide
+--  Must give context if column name collide
 
 SELECT comments.id AS comments_id, p.id
 FROM photos AS p
@@ -185,7 +183,7 @@ JOIN comments
 ON p.id = comments.photo_id;
 
 
-# ------------------------------------------------------ MISSING DATA IN JOIN
+---- MISSING DATA IN JOIN
 
 INSERT INTO photos (url, user_id)
 VALUES ('https://banner.jpg', NULL);
@@ -195,12 +193,12 @@ FROM photos
 JOIN users
 ON photos.user_id = users.id;
 
-# ------------------------------------------------------ 4 KINDS OF JOIN
+---- 4 KINDS OF JOIN
 
-# INNER JOIN
-# LEFT OUTER JOIN
-# RIGHT OUTER JOIN
-# FULL JOIN
+-- INNER JOIN
+-- LEFT OUTER JOIN
+-- RIGHT OUTER JOIN
+-- FULL JOIN
 
 SELECT url, username
 FROM photos
@@ -221,7 +219,7 @@ FROM photos
 FULL JOIN users
 ON photos.user_id = users.id;
 
-# ------------------------------------------------------ DOES ORDER MATTER?
+---- DOES ORDER MATTER?
 
 SELECT url, username
 FROM photos
@@ -235,7 +233,7 @@ LEFT JOIN photos
 ON photos.user_id = users.id;
 
 
-# ------------------------------------------------------ WHERE WITH JOIN
+---- WHERE WITH JOIN
 
 
 SELECT url, contents
@@ -244,7 +242,7 @@ JOIN comments
 ON photos.id = comments.photo_id
 WHERE photos.user_id = comments.user_id;
 
-# ------------------------------------------------------ THREE WAY JOIN
+---- THREE WAY JOIN
 
 SELECT url, contents, username
 FROM comments
