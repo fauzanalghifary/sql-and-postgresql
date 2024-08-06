@@ -1,4 +1,4 @@
-# ------------------------------------------------------ NEW DATASET
+---- NEW DATASET
 
 CREATE TABLE usersB (
   id SERIAL PRIMARY KEY,
@@ -16,7 +16,7 @@ CREATE TABLE products (
 
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id),
+  user_id INTEGER REFERENCES usersb(id),
   product_id INTEGER REFERENCES products(id),
   paid BOOLEAN
 );
@@ -734,7 +734,7 @@ VALUES
   (3, 32, true);
   
   
-# ------------------------------------------------------ NEW DATASET
+---- NEW DATASET
 
 SELECT * FROM usersB;
 SELECT * FROM products;
