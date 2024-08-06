@@ -1,21 +1,20 @@
-# ------------------------------------------------------ AGGREGATING AND GROUPING
+---- AGGREGATING AND GROUPING
 
-# AGGREGATING => reduces many values done to one
+-- AGGREGATING => reduces many values done to one
+-- GROUPING => reduces many rows to fewer rows
 
-# GROUPING => reduces many rows to fewer rows
-
-# ------------------------------------------------------ GROUP BY
+---- GROUP BY
 
 SELECT user_id
 FROM comments
 GROUP BY user_id;
 
-# katanya bakal error, tapi kok enggak
+-- errors because contents is not in the GROUP BY clause
 SELECT contents
 FROM comments
 GROUP BY user_id;
 
-# ------------------------------------------------------ AGGREGATE FUNCTION
+---- AGGREGATE FUNCTION
 
 SELECT MAX(id)
 FROM comments;
@@ -23,24 +22,24 @@ FROM comments;
 SELECT AVG(id)
 FROM comments;
 
-# ------------------------------------------------------ COMBINING AGGREGATE AND GROUP BY
+---- COMBINING AGGREGATE AND GROUP BY
 
 SELECT user_id, COUNT(id) AS total_comments
 FROM comments
 GROUP BY user_id;
 
 
-# ------------------------------------------------------ COUNT
+---- COUNT
 
-# null is not counted
+-- null is not counted
 SELECT COUNT(user_id)
 FROM photos;
 
-# null is counted (count num of rows)
+-- null is counted (count num of rows)
 SELECT COUNT(*)
 FROM photos;
 
-# null is not counted
+-- null is not counted
 SELECT user_id, COUNT(*)
 FROM photos
 GROUP BY user_id;
@@ -54,12 +53,12 @@ FROM comments
 GROUP BY photo_id;
 
 
-# ------------------------------------------------------ HAVING
+---- HAVING
 
-# FROM - JOIN - WHERE - GROUP BY - HAVING
+-- FROM - JOIN - WHERE - GROUP BY - HAVING
 
-# HAVING => Filters the set of groups
-# KALO ADA HAVING, PASTI ADA GROUP BY
+-- HAVING => Filters the set of groups
+-- HAVING ALWAYS COMES WITH GROUP BY
 
 SELECT photo_id, COUNT(*)
 FROM comments
