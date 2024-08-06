@@ -1,4 +1,4 @@
-# ------------------------------------------------------ UNION
+---- UNION
 (
 SELECT name, price
 FROM products
@@ -14,9 +14,8 @@ LIMIT 4
 );
 
 
-# ------------------------------------------------------ INTERSECT
+---- INTERSECT
 
-# Kok error
 (
 SELECT name, price
 FROM products
@@ -31,7 +30,7 @@ ORDER BY price/weight DESC
 LIMIT 4
 );
 
-# ------------------------------------------------------ EXCEPT
+---- EXCEPT
 
 (
 SELECT name, price
