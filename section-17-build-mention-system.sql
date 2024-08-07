@@ -5,7 +5,7 @@ CREATE TABLE tags (
     user_id INTEGER REFERENCES users(id),
     post_id INTEGER REFERENCES posts(id),
     x INTEGER,
-    y INTEGER,
+    y INTEGER
 );
 
 -- x and y are the coordinates of the tag on the image
@@ -20,7 +20,7 @@ CREATE TABLE photo_tags (
     user_id INTEGER REFERENCES users(id),
     post_id INTEGER REFERENCES posts(id),
     x INTEGER,
-    y INTEGER,
+    y INTEGER
 );
 
 CREATE TABLE caption_tags (
@@ -28,7 +28,7 @@ CREATE TABLE caption_tags (
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     user_id INTEGER REFERENCES users(id),
-    post_id INTEGER REFERENCES posts(id),
+    post_id INTEGER REFERENCES posts(id)
 );
 
 /*
