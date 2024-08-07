@@ -6,7 +6,6 @@
 - is a value unique in its column
 - is a value >, <, =, >=, <=, <> another value
 
-
 */ 
 
 
