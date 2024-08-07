@@ -1,5 +1,4 @@
-# ------------------------------------------------------ DISTINCT
-
+---- DISTINCT
 
 SELECT DISTINCT department
 FROM products;
@@ -7,7 +6,7 @@ FROM products;
 SELECT COUNT(DISTINCT department)
 FROM products;
 
-# group by bisa menggantikan distinct, tapi tidak sebaliknya.
+-- DISTINCT CAN BE REPLACED BY GROUP BY, BUT NOT THE OTHER WAY AROUND
 
 SELECT DISTINCT department, name
 FROM  products;
