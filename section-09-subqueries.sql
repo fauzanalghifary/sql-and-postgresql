@@ -1,6 +1,6 @@
-# ------------------------------------------------------ SUBQUERY
+---- SUBQUERY
 
-SELECT * products;
+SELECT * FROM products;
 
 SELECT name, price
 FROM products
@@ -15,21 +15,21 @@ WHERE price > (
 );
 
 
-# ------------------------------------------------------ SHAPE OF DATA
+---- SHAPE OF DATA
 
-# many rows, many columns
+-- many rows, many columns
 SELECT *
 FROM orders;
 
-# many rows, one column
+-- many rows, one column
 SELECT id
 FROM orders;
 
-# single value
+-- single value
 SELECT COUNT(*)
 FROM orders;
 
-# ------------------------------------------------------ SUBQUERIES IN SELECT
+---- SUBQUERIES IN SELECT
 
 SELECT price, (
     SELECT MAX(price) FROM products
@@ -37,36 +37,28 @@ SELECT price, (
 FROM products
 WHERE price > 867;
 
-
-
 SELECT price, (
     SELECT price FROM products WHERE id = 3
 ) AS id_3_price
 FROM products
 WHERE price > 867;
 
-SELECT price, 
-price/(SELECT MAX(price)
-FROM products) AS price_ratio
-FROM products
-
-# KENAPA INI CUMAN 1 BARIS YA.
-SELECT price, 
-price/MAX(price) AS price_ratio
+SELECT price,
+       price / (SELECT MAX(price) * 1.0
+                FROM products) AS price_ratio
 FROM products;
 
+--- SUBQUERIES IN FROM
 
-# ------------------------------------------------------ SUBQUERIES IN FROM
-
-# the subqueries MUST have an alias
-# the data shape must be compatible
+-- the subqueries MUST have an alias
+-- the data shape must be compatible
 
 SELECT name, price/weight AS price_weight_ratio
 FROM products;
 
 SELECT name, price_weight_ratio
 FROM (
-    SELECT name, price/weight AS           price_weight_ratio
+    SELECT name, price/weight AS price_weight_ratio
     FROM products
 ) AS p
 WHERE price_weight_ratio > 5;
@@ -90,7 +82,7 @@ FROM (
 ) AS p;
 
 
-# ------------------------------------------------------ SUBQUERIES IN JOIN
+---- SUBQUERIES IN JOIN
 
 SELECT first_name
 FROM usersB
@@ -108,7 +100,7 @@ ON orders.user_id = usersB.id
 WHERE orders.product_id = 3;
 
 
-# ------------------------------------------------------ SUBQUERIES IN WHERE
+---- SUBQUERIES IN WHERE
 
 SELECT id
 FROM orders
@@ -118,7 +110,7 @@ WHERE product_id IN (
     WHERE price/weight > 350
 );
 
-# Versi join
+-- using join
 SELECT orders.id
 FROM orders
 JOIN products ON orders.product_id = products.id
@@ -140,9 +132,9 @@ WHERE department NOT IN (
     WHERE price < 100
 );
 
-# ------------------------------------------------------ SUBQUERIES IN WHERE (2)
+---- SUBQUERIES IN WHERE (2)
 
-SHOW name, department, price
+SELECT name, department, price
 FROM products
 WHERE price > ALL (
     SELECT price
@@ -150,16 +142,16 @@ WHERE price > ALL (
     WHERE department = 'Industrial'
 );
 
-SHOW name, department, price
+SELECT name, department, price
 FROM products
 WHERE price > (
-    SELECT MAX(price);
+    SELECT MAX(price)
     FROM products
     WHERE department = 'Industrial'
 );
 
 
-SHOW name, department, price
+SELECT name, department, price
 FROM products
 WHERE price > SOME (
     SELECT price
@@ -168,7 +160,7 @@ WHERE price > SOME (
 );
 
 
-# ------------------------------------------------------ CORRELATED SUBQUERIES
+---- CORRELATED SUBQUERIES
 
 SELECT name, department, price
 FROM products AS p1
@@ -189,25 +181,23 @@ WHERE (department, price) in
         group BY department
     );
 
-
-
 SELECT p1.name, (
     SELECT COUNT(*)
     FROM orders AS o1
     WHERE o1.product_id = p1.id
-)
-FROM products AS p1;
+) as num_orders
+FROM products AS p1
+ORDER BY num_orders;
 
 
 SELECT p1.name, COUNT(*) as num_orders
 FROM products AS p1
 JOIN orders AS o1 ON o1.product_id = p1.id
 GROUP BY p1.name
+ORDER BY num_orders;
 
 
-
-# ------------------------------------------------------ WITHOUT FROM
-
+---- WITHOUT FROM
 
 SELECT(
     SELECT MAX(price)
