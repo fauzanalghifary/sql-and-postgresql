@@ -10,4 +10,4 @@ The `PGDATA` directory contains a number of files and directories.
 
 - Heap file: file that contains all the data (rows) of our table
 - Tuple (item): a single row of data
-- Block: the heap file is divided into blocks of 8KB. Each block contains multiple tuples.
+- Block (page): the heap file is divided into blocks of 8KB. Each block contains multiple tuples.
