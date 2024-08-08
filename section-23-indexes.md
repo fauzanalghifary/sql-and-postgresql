@@ -1,6 +1,10 @@
 ## Full Table Scan
 
-A full table scan is a scan of the entire table. This is the slowest type of scan, and should be avoided if possible. A full table scan is performed when no index is available to use, or when the optimizer decides that it is more efficient to perform a full table scan than to use an index.
+- A full table scan is a scan of the entire table. 
+- This is the slowest type of scan, and should be avoided if possible. 
+- PG has to load many (or all) rows from the heap file to memory.
+- A full table scan is performed when no index is available to use, or when the optimizer decides that it is more efficient to perform a full table scan than to use an index.
+- Every time there is a full table scan, it warrants an investigation.
 
 ## What is an Index?
 
@@ -9,7 +13,13 @@ A full table scan is a scan of the entire table. This is the slowest type of sca
 
 ## How do Indexes Work?
 
-- An index is a data structure that contains one or more columns from a table. The index is stored in a self-balancing tree structure, which allows the index to be quickly searched and sorted.
+- Data structure that efficiently tells us what block/index a record is stored at.
+- Store only the property that we want to do fast lookups by and the block/index for each.
+- Sorted in some meaningful way.
+- Organized into a tree data structure.
+
+- An index is a data structure that contains one or more columns from a table. 
+- The index is stored in a self-balancing tree structure, which allows the index to be quickly searched and sorted.
 - When a table is created, indexes are not created by default. You must create them yourself.
 - Indexes are created using one or more columns of a table. The index stores the value of the column or columns, as well as the address of the row in which the column or columns are found.
 
@@ -25,27 +35,27 @@ A full table scan is a scan of the entire table. This is the slowest type of sca
 
 ## Benchmarking Indexes
 
-- To benchmark an index, you can use the EXPLAIN statement. The EXPLAIN statement will show you the query plan that PostgreSQL will use to execute a query.
-- The EXPLAIN statement can be used to analyze the performance of a query before it is executed. This is useful for determining whether an index will improve the performance of a query.
-- The EXPLAIN statement can also be used to analyze the performance of a query after it has been executed. This is useful for determining whether an index is being used by a query.
-
-<!-- EXPLAIN SELECT * FROM users WHERE username = 'jdoe'; -->
+EXPLAIN ANALYZE
+SELECT *
+FROM users
+WHERE username = 'Emil30';
 
 ## Downside of Indexes
 
-- Indexes can slow down data modification operations (INSERT, UPDATE, DELETE) because the index must also be updated whenever the table is modified.
-- Indexes can also take up a lot of disk space, especially if the table contains a lot of columns.
-- Indexes might not actually get used by a query, even if they exist. This is because the query optimizer might decide that it is more efficient to perform a full table scan than to use an index.
+- Can be large! Stores data from at least one column of the real table.
+- Slows down data modification operations (INSERT, UPDATE, DELETE), because the index must also be updated whenever the table is modified.
+- Index might not be actually used by a query, even if it exists. The query optimizer might decide that it is more efficient to perform a full table scan than to use an index.
 
 ## Index Types
 
-- There are two types of indexes: B-tree indexes and Hash indexes.
-- B-tree indexes are the default index type in PostgreSQL. B-tree indexes are generally faster than hash indexes, but take up more disk space.
-- Hash indexes are faster than B-tree indexes, but take up more disk space. Hash indexes are only used for equality comparisons (WHERE column = value).
+- B-Tree => general purpose index, 99% of the time you will use this.
+- Hash
+- GiST
+- SP-GiST
+- GIN
+- BRIN
 
 ## Automaticaly Generated Indexes
 
-- PostgreSQL automatically creates indexes on primary keys and unique constraints.
-- PostgreSQL also automatically creates indexes on foreign keys if the referencing column is declared as NOT NULL.
-- PostgreSQL does not automatically create indexes on foreign keys if the referencing column is declared as NULL.
-- PostgreSQL automatically creates indexes on UNIQUE columns that are declared as NOT NULL.
+- Primary key columns are automatically indexed.
+- Unique columns are automatically indexed.
